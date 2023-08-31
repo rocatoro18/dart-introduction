@@ -1,7 +1,8 @@
 void main() {
   final windplant = WindPlant(initialEnergy: 100);
-  print(windplant);
+  final nuclearPlant = NuclearPlant(energyLeft: 1000);
   print('wind: : ${chargedPhone(windplant)}');
+  print('nuclear: : ${chargedPhone(nuclearPlant)}');
 }
 
 // Principio inversion de dependencias y adaptadores
@@ -16,7 +17,7 @@ enum PlantType { nuclear, wind, water }
 
 abstract class EnergyPlant {
   double energyLeft;
-  PlantType type; // nuclear, wind, water
+  final PlantType type; // nuclear, wind, water
 
   EnergyPlant({required this.energyLeft, required this.type});
 
@@ -24,7 +25,7 @@ abstract class EnergyPlant {
 }
 
 // extends o implements
-// extends = herencia
+// extends = herencia, extiende todo (general)
 class WindPlant extends EnergyPlant {
   WindPlant({required double initialEnergy})
       : super(energyLeft: initialEnergy, type: PlantType.wind);
@@ -32,5 +33,16 @@ class WindPlant extends EnergyPlant {
   @override
   void consumeEnergy(double amount) {
     energyLeft -= amount;
+  }
+}
+
+// implements = nos obliga explicitamente a colocar cada override, implementa solo lo que se necesita (especifico)
+class NuclearPlant implements EnergyPlant {
+  double energyLeft;
+  final PlantType type = PlantType.nuclear;
+  NuclearPlant({required this.energyLeft});
+  @override
+  void consumeEnergy(double amount) {
+    energyLeft -= (amount * 0.5);
   }
 }
