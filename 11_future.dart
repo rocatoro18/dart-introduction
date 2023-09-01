@@ -3,9 +3,13 @@ void main() async {
 
   try {
     final value = await httpGet('');
-    print(value);
+    print('exito: $value');
+  } on Exception catch (err) {
+    print('Tenemos una exception $err');
   } catch (err) {
-    print(err);
+    print('No se que paso: $err');
+  } finally {
+    print('fin del try y catch');
   }
 
   print('Fin del programa');
@@ -14,7 +18,10 @@ void main() async {
 Future<String> httpGet(String url) async {
   await Future.delayed(const Duration(seconds: 1), () {});
 
-  throw 'Error en la peticion';
+  // Error controlado
+  throw Exception('No hay parametros en el URL');
+  // Error no controlado
+  //throw 'Error en la peticion';
 
   return 'Tenemos un valor de la petición';
 }
