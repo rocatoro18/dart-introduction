@@ -23,5 +23,5 @@ Future<String> httpGet(String url) async {
   // Error no controlado
   //throw 'Error en la peticion';
 
-  return 'Tenemos un valor de la petición';
+  //return 'Tenemos un valor de la petición';
 }
